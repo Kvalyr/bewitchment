@@ -126,7 +126,9 @@ public class TransformationComponent implements AutoSyncedComponent, ServerTicki
 				// obj.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, Integer.MAX_VALUE, 0, true, false));
 
                 // Kv: Add regen
-				obj.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, Integer.MAX_VALUE, 1, true, false));
+                if (!(obj.hasStatusEffect(StatusEffects.REGENERATION) && obj.getStatusEffect(StatusEffects.REGENERATION).isAmbient())) {
+				    obj.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, Integer.MAX_VALUE, 0, true, false));
+                }
 
 				// Kv: Don't drop items when Werewolf - It's unfun.
                 // obj.getArmorItems().forEach(stack -> obj.dropStack(stack.split(1)));
