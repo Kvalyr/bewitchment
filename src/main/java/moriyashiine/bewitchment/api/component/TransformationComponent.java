@@ -122,7 +122,10 @@ public class TransformationComponent implements AutoSyncedComponent, ServerTicki
 			// }
 
 			if (isAlternateForm()) {
-				obj.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, Integer.MAX_VALUE, 0, true, false));
+                // Kv: No more night vision
+				// obj.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, Integer.MAX_VALUE, 0, true, false));
+
+                // Kv: Add regen
 				obj.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, Integer.MAX_VALUE, 1, true, false));
 
 				// Kv: Don't drop items when Werewolf - It's unfun.

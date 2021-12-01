@@ -92,9 +92,13 @@ public class TransformationAbilityPacket {
 				if (isAlternateForm) {
 					// width.setScale(width.getBaseScale() / WEREWOLF_WIDTH);
 					// height.setScale(height.getBaseScale() / WEREWOLF_HEIGHT);
+
+                    // Kv: No more night vision
 					if (player.hasStatusEffect(StatusEffects.NIGHT_VISION) && player.getStatusEffect(StatusEffects.NIGHT_VISION).isAmbient()) {
 						player.removeStatusEffect(StatusEffects.NIGHT_VISION);
 					}
+                    
+                    // Kv: Add regen
 					if (player.hasStatusEffect(StatusEffects.REGENERATION) && player.getStatusEffect(StatusEffects.REGENERATION).isAmbient()) {
 						player.removeStatusEffect(StatusEffects.REGENERATION);
 					}
