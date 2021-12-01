@@ -39,18 +39,21 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 		return amount;
 	}
 
-	// @ModifyVariable(method = "addExhaustion", at = @At("HEAD"))
-	// private float modifyExhaustion(float exhaustion) {
-	// 	if (!world.isClient) {
-	// 		if (BewitchmentAPI.isWerewolf(this, true)) {
-	// 			exhaustion *= 1.25f;
-	// 		}
-	// 		if (BewitchmentAPI.isWerewolf(this, false)) {
-	// 			exhaustion *= 2;
-	// 		}
-	// 	}
-	// 	return exhaustion;
-	// }
+	@ModifyVariable(method = "addExhaustion", at = @At("HEAD"))
+	private float modifyExhaustion(float exhaustion) {
+		if (!world.isClient) {
+            // Werewolf in Human form
+			if (BewitchmentAPI.isWerewolf(this, true)) {
+				exhaustion *= 1.25f;
+			}
+            // Werewolf in Lycan form
+			if (BewitchmentAPI.isWerewolf(this, false)) {
+                // Kv: Lycan werewolf gets hungry faster (Bewitchment: 2, Kv: 2.5)
+				exhaustion *= 2.5;
+			}
+		}
+		return exhaustion;
+	}
 
 	@Inject(method = "getHurtSound", at = @At("HEAD"))
 	private void getHurtSound(DamageSource source, CallbackInfoReturnable<SoundEvent> callbackInfo) {
@@ -72,7 +75,11 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 			FoodComponent foodComponent = stack.getItem().getFoodComponent();
 			if (foodComponent != null) {
 				boolean vampire = BewitchmentAPI.isVampire(this, true);
-				if (vampire || (BewitchmentAPI.isWerewolf(this, true) && !foodComponent.isMeat())) {
+
+                // Kv: Let Werewolves eat normal food
+                // if (vampire || (BewitchmentAPI.isWerewolf(this, true) && !foodComponent.isMeat())) {
+
+				if (vampire) {
 					addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 100, 1));
 					addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 1));
 					addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 100, 1));
