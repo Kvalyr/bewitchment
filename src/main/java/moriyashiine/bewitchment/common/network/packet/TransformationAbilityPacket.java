@@ -82,7 +82,9 @@ public class TransformationAbilityPacket {
 					VAMPIRE_FLIGHT_SOURCE.grantTo(player, VanillaAbilities.FLYING);
 				}
 			}
-			else if (transformationComponent.getTransformation() == BWTransformations.WEREWOLF && (forced || BewitchmentAPI.isPledged(player, BWPledges.HERNE))) {
+            // Kv: Allow player to transform at-will without Herne pledge
+			// else if (transformationComponent.getTransformation() == BWTransformations.WEREWOLF && (forced || BewitchmentAPI.isPledged(player, BWPledges.HERNE))) {
+			else if (transformationComponent.getTransformation() == BWTransformations.WEREWOLF) {
 				PlayerLookup.tracking(player).forEach(trackingPlayer -> SpawnSmokeParticlesPacket.send(trackingPlayer, player));
 				SpawnSmokeParticlesPacket.send(player, player);
 				world.playSound(null, player.getBlockPos(), BWSoundEvents.ENTITY_GENERIC_TRANSFORM, player.getSoundCategory(), 1, 1);

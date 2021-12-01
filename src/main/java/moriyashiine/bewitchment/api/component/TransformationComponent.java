@@ -133,9 +133,10 @@ public class TransformationComponent implements AutoSyncedComponent, ServerTicki
 				// 	obj.dropStack(obj.getOffHandStack().split(1));
 				// }
 
-				if (!forced && !BewitchmentAPI.isPledged(obj, BWPledges.HERNE)) {
-					TransformationAbilityPacket.useAbility(obj, true);
-				}
+                // Kv: Allow staying in Werewolf form without pledge
+				// if (!forced && !BewitchmentAPI.isPledged(obj, BWPledges.HERNE)) {
+				// 	TransformationAbilityPacket.useAbility(obj, true);
+				// }
 			}
 		}
 	}
