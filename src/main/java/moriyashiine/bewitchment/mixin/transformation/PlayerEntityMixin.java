@@ -26,11 +26,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class PlayerEntityMixin extends LivingEntity {
 	@Shadow
 	public abstract SoundCategory getSoundCategory();
-	
+
 	protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
 		super(entityType, world);
 	}
-	
+
 	@ModifyVariable(method = "applyDamage", at = @At(value = "INVOKE", ordinal = 0, target = "Lnet/minecraft/entity/player/PlayerEntity;getHealth()F"), ordinal = 0)
 	private float modifyDamage(float amount, DamageSource source) {
 		if (!world.isClient) {
@@ -38,34 +38,34 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 		}
 		return amount;
 	}
-	
-	@ModifyVariable(method = "addExhaustion", at = @At("HEAD"))
-	private float modifyExhaustion(float exhaustion) {
-		if (!world.isClient) {
-			if (BewitchmentAPI.isWerewolf(this, true)) {
-				exhaustion *= 1.25f;
-			}
-			if (BewitchmentAPI.isWerewolf(this, false)) {
-				exhaustion *= 2;
-			}
-		}
-		return exhaustion;
-	}
-	
+
+	// @ModifyVariable(method = "addExhaustion", at = @At("HEAD"))
+	// private float modifyExhaustion(float exhaustion) {
+	// 	if (!world.isClient) {
+	// 		if (BewitchmentAPI.isWerewolf(this, true)) {
+	// 			exhaustion *= 1.25f;
+	// 		}
+	// 		if (BewitchmentAPI.isWerewolf(this, false)) {
+	// 			exhaustion *= 2;
+	// 		}
+	// 	}
+	// 	return exhaustion;
+	// }
+
 	@Inject(method = "getHurtSound", at = @At("HEAD"))
 	private void getHurtSound(DamageSource source, CallbackInfoReturnable<SoundEvent> callbackInfo) {
 		if (source == BWDamageSources.SUN) {
 			world.playSound(null, getBlockPos(), SoundEvents.BLOCK_FIRE_EXTINGUISH, getSoundCategory(), getSoundVolume(), getSoundPitch());
 		}
 	}
-	
+
 	@Inject(method = "canFoodHeal", at = @At("RETURN"), cancellable = true)
 	private void canFoodHeal(CallbackInfoReturnable<Boolean> callbackInfo) {
 		if (callbackInfo.getReturnValue() && BewitchmentAPI.isVampire(this, true)) {
 			callbackInfo.setReturnValue(false);
 		}
 	}
-	
+
 	@Inject(method = "eatFood", at = @At("HEAD"))
 	private void eat(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> callbackInfo) {
 		if (!world.isClient) {
