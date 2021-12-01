@@ -95,6 +95,9 @@ public class TransformationAbilityPacket {
 					if (player.hasStatusEffect(StatusEffects.NIGHT_VISION) && player.getStatusEffect(StatusEffects.NIGHT_VISION).isAmbient()) {
 						player.removeStatusEffect(StatusEffects.NIGHT_VISION);
 					}
+					if (player.hasStatusEffect(StatusEffects.REGENERATION) && player.getStatusEffect(StatusEffects.REGENERATION).isAmbient()) {
+						player.removeStatusEffect(StatusEffects.REGENERATION);
+					}
 				}
 				// else {
 				// 	width.setScale(width.getBaseScale() * WEREWOLF_WIDTH);
