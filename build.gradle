@@ -93,9 +93,11 @@ dependencies {
     }
     modImplementation "io.github.ladysnake:impersonate:${impersonate_version}"
     modImplementation "vazkii.patchouli:Patchouli:${patchouli_version}"
-    modImplementation("com.github.virtuoel:pehkui:${pehkui_version}") {
-        exclude(group: "net.fabricmc.fabric-api")
-    }
+
+    // Kv: Don't depend on pehkui, we aren't doing scaling any more
+    // modImplementation("com.github.virtuoel:pehkui:${pehkui_version}") {
+    //     exclude(group: "net.fabricmc.fabric-api")
+    // }
     modImplementation "io.github.ladysnake:PlayerAbilityLib:${pal_version}"
     modImplementation "com.github.emilyalexandra:trinkets:${trinkets_version}"
 
