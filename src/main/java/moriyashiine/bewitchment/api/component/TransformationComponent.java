@@ -123,13 +123,16 @@ public class TransformationComponent implements AutoSyncedComponent, ServerTicki
 
 			if (isAlternateForm()) {
 				obj.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, Integer.MAX_VALUE, 0, true, false));
-				obj.getArmorItems().forEach(stack -> obj.dropStack(stack.split(1)));
-				if (BWUtil.isTool(obj.getMainHandStack())) {
-					obj.dropStack(obj.getMainHandStack().split(1));
-				}
-				if (BWUtil.isTool(obj.getOffHandStack())) {
-					obj.dropStack(obj.getOffHandStack().split(1));
-				}
+
+				// Kv: Don't drop items when Werewolf - It's unfun.
+                // obj.getArmorItems().forEach(stack -> obj.dropStack(stack.split(1)));
+				// if (BWUtil.isTool(obj.getMainHandStack())) {
+				// 	obj.dropStack(obj.getMainHandStack().split(1));
+				// }
+				// if (BWUtil.isTool(obj.getOffHandStack())) {
+				// 	obj.dropStack(obj.getOffHandStack().split(1));
+				// }
+
 				if (!forced && !BewitchmentAPI.isPledged(obj, BWPledges.HERNE)) {
 					TransformationAbilityPacket.useAbility(obj, true);
 				}
